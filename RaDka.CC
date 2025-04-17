@@ -526,3 +526,33 @@ player.CharacterAdded:Connect(function(newCharacter)
     canBoostJump = true
 end)
 end)
+
+Tab3:Toggle("Fullbright", false, function(value)
+    if value then
+        game:GetService("Lighting").Brightness = 2
+        game:GetService("Lighting").ClockTime = 14
+        game:GetService("Lighting").FogEnd = 100000
+        game:GetService("Lighting").GlobalShadows = false
+        game:GetService("Lighting").OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+        game:GetService("Lighting").FogStart = 0
+        game:GetService("Lighting").FogEnd = 9999999
+    else
+        game:GetService("Lighting").Brightness = 1
+        game:GetService("Lighting").ClockTime = 14
+        game:GetService("Lighting").FogEnd = 100000
+        game:GetService("Lighting").GlobalShadows = true
+        game:GetService("Lighting").OutdoorAmbient = Color3.fromRGB(127, 127, 127)
+        game:GetService("Lighting").FogStart = 0
+        game:GetService("Lighting").FogEnd = 100000
+    end
+end)
+
+Tab3:Toggle("No Fog", false, function(value)
+    if value then
+        game:GetService("Lighting").FogStart = 0
+        game:GetService("Lighting").FogEnd = 9999999
+    else
+        game:GetService("Lighting").FogStart = 0
+        game:GetService("Lighting").FogEnd = 100000
+    end
+end)
