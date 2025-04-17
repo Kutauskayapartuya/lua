@@ -498,7 +498,7 @@ local humanoid = character:WaitForChild("Humanoid")
 local rootPart = character:WaitForChild("HumanoidRootPart")
 
 local isBoostJumping = false
-local boostForce = 120
+local boostForce = 500
 local canBoostJump = true
 
 local function startBoostJump()
