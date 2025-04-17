@@ -556,3 +556,31 @@ Tab3:Toggle("No Fog", false, function(value)
         game:GetService("Lighting").FogEnd = 100000
     end
 end)
+
+Tab3:Button("Zoom H", false, function()
+    local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+local Camera = workspace.CurrentCamera
+local LocalPlayer = Players.LocalPlayer
+
+local zoomEnabled = false
+local defaultFOV = 70
+local zoomFOV = 20
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if input.KeyCode == Enum.KeyCode.H and not gameProcessed then
+        zoomEnabled = not zoomEnabled
+        
+        if zoomEnabled then
+            -- Включаем зум
+            Camera.FieldOfView = zoomFOV
+        else
+            -- Выключаем зум
+            Camera.FieldOfView = defaultFOV
+        end
+    end
+end)
+
+-- Сохраняем стандартный FOV при запуске
+defaultFOV = Camera.FieldOfView
+end)
