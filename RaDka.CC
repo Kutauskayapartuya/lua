@@ -585,26 +585,39 @@ end)
 defaultFOV = Camera.FieldOfView
 end)
 
-Tab3:Toggle("Rainbow Atmosphere", false, function(value)
-    AtmosphereEnabled = value
+Tab3:Toggle("Rainbow Sky", false, function(value)
+    local SkyEnabled = value
     
-    -- Создаем атмосферу если её нет
-    local atmosphere = Lighting:FindFirstChildOfClass("Atmosphere") or Instance.new("Atmosphere")
-    atmosphere.Parent = Lighting
+    -- Создаем небо если его нет
+    local sky = Lighting:FindFirstChildOfClass("Sky") or Instance.new("Sky")
+    sky.Parent = Lighting
     
     -- Базовые настройки
-    atmosphere.Density = 0.3
-    atmosphere.Offset = 0
-    atmosphere.Glare = 0
-    atmosphere.Haze = 0
+    sky.SkyboxBk = "rbxassetid://7018684000"
+    sky.SkyboxDn = "rbxassetid://7018684000"
+    sky.SkyboxFt = "rbxassetid://7018684000"
+    sky.SkyboxLf = "rbxassetid://7018684000"
+    sky.SkyboxRt = "rbxassetid://7018684000"
+    sky.SkyboxUp = "rbxassetid://7018684000"
     
-    -- Обновление цвета
     RunService.RenderStepped:Connect(function()
-        if AtmosphereEnabled then
+        if SkyEnabled then
             local time = tick() * 0.5
             local rainbowColor = Color3.fromHSV(time % 1, 1, 1)
-            atmosphere.Color = rainbowColor
-            atmosphere.Decay = rainbowColor
+            sky.CelestialBodiesShown = false
+            sky.MoonAngularSize = 0
+            sky.SunAngularSize = 0
+            sky.StarCount = 0
+            sky.SkyboxBk = ""
+            sky.SkyboxDn = ""
+            sky.SkyboxFt = ""
+            sky.SkyboxLf = ""
+            sky.SkyboxRt = ""
+            sky.SkyboxUp = ""
+            Lighting.FogColor = rainbowColor
+            Lighting.FogEnd = 100
+            Lighting.FogStart = 0
+            sky.TintColor = rainbowColor
         end
     end)
 end)
