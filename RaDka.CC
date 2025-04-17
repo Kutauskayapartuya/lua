@@ -339,7 +339,7 @@ for _, player in pairs(Players:GetPlayers()) do
     end
 end
 
-Tab2:Button("Hitbox V",function()
+Tab2:Button("Hitbox",function()
     _G.HeadSize = 15
 _G.Disabled = true
 
