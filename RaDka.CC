@@ -584,3 +584,69 @@ end)
 -- Сохраняем стандартный FOV при запуске
 defaultFOV = Camera.FieldOfView
 end)
+
+local Lighting = game:GetService("Lighting")
+local RunService = game:GetService("RunService")
+
+local AtmosphereSettings = {
+    Enabled = false,
+    RainbowSpeed = 1,
+    Density = 0.5,
+    Offset = 0,
+    Color = Color3.new(1, 1, 1),
+    Decay = Color3.new(1, 1, 1),
+    Glare = 0,
+    Haze = 0
+}
+
+-- Создаем атмосферу если её нет
+local atmosphere = Lighting:FindFirstChildOfClass("Atmosphere") or Instance.new("Atmosphere")
+atmosphere.Parent = Lighting
+
+-- Функция для создания радужного цвета
+local function getRainbowColor()
+    local time = tick() * AtmosphereSettings.RainbowSpeed
+    return Color3.fromHSV(time % 1, 1, 1)
+end
+
+-- Обновление атмосферы
+local function updateAtmosphere()
+    if AtmosphereSettings.Enabled then
+        local rainbowColor = getRainbowColor()
+        atmosphere.Color = rainbowColor
+        atmosphere.Decay = rainbowColor
+        atmosphere.Density = AtmosphereSettings.Density
+        atmosphere.Offset = AtmosphereSettings.Offset
+        atmosphere.Glare = AtmosphereSettings.Glare
+        atmosphere.Haze = AtmosphereSettings.Haze
+    end
+end
+
+-- Создаем элементы управления в GUI
+Tab3:Toggle("Rainbow Atmosphere", false, function(value)
+    AtmosphereSettings.Enabled = value
+end)
+
+Tab3:Slider("Rainbow Speed",0,10,1,function(value)
+    AtmosphereSettings.RainbowSpeed = value
+end)
+
+Tab3:Slider("Density",0,1,0.5,function(value)
+    AtmosphereSettings.Density = value
+end)
+
+Tab3:Slider("Offset",0,1,0,function(value)
+    AtmosphereSettings.Offset = value
+end)
+
+Tab3:Slider("Glare",0,10,0,function(value)
+    AtmosphereSettings.Glare = value
+end)
+
+Tab3:Slider("Haze",0,10,0,function(value)
+    AtmosphereSettings.Haze = value
+end)
+
+-- Запускаем обновление
+RunService.RenderStepped:Connect(updateAtmosphere)
+end)
