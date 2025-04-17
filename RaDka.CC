@@ -1,6 +1,6 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Patskorn/GUI/main/Copy-SynapOver.lua"))()
 
-local GUI = library:new("SynapOver","[ RightControl ]")
+local GUI = library:new("RaDka.CC","[ RightControl ]")
 local Tab1 = GUI:Tap("ESP")
 local Tab2 = GUI:Tap("COMBAT")
 local Tab3 = GUI:Tap("VISUAL")
@@ -339,6 +339,28 @@ for _, player in pairs(Players:GetPlayers()) do
     end
 end
 
+Tab2:Button("Hitbox V",function()
+    _G.HeadSize = 15
+_G.Disabled = true
+
+game:GetService('RunService').RenderStepped:connect(function()
+    if _G.Disabled then
+        for i,v in next, game:GetService('Players'):GetPlayers() do
+            if v.Name ~= game:GetService('Players').LocalPlayer.Name then
+                pcall(function()
+                    v.Character.Head.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
+                    v.Character.Head.Transparency = 0.4
+                    v.Character.Head.BrickColor = BrickColor.new("Red")
+                    v.Character.Head.Material = "Glass"
+                    v.Character.Head.CanCollide = false
+                    v.Character.Head.Massless = true
+                end)
+            end
+        end
+    end
+end)
+end)
+
 Tab2:Button("Aimbot T",function()
     local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
@@ -394,7 +416,7 @@ UserInputService.InputEnded:Connect(function(input)
 end)
 end)
 
-Tab2:Button("ShowFov",function()
+Tab2:Button("ShowFov Y",function()
     -- Получаем необходимые сервисы
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
